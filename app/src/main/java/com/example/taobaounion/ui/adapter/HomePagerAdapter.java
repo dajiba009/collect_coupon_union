@@ -29,8 +29,8 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        LogUtils.d(this,"title ===> " + mCategoriesList.get(position).getFavorites_title());
-        return mCategoriesList.get(position).getFavorites_title();
+        LogUtils.d(this,"title ===> " + mCategoriesList.get(position).getTitle());
+        return mCategoriesList.get(position).getTitle();
     }
 
     @NonNull
@@ -53,7 +53,7 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
         mCategoriesList.clear();
         List<Categories.DataBean> data = categories.getData();
         mCategoriesList.addAll(data);
-        LogUtils.d(this,"Categories's DataBean size ===> " + mCategoriesList.size());
+        //LogUtils.d(this,"Categories's DataBean size ===> " + mCategoriesList.size());
         notifyDataSetChanged();
     }
 }

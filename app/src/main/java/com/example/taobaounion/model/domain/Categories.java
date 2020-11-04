@@ -4,11 +4,12 @@ import java.util.List;
 
 public class Categories {
 
+
     /**
      * success : true
      * code : 10000
-     * message : 获取精选分类成功.
-     * data : [{"type":1,"favorites_id":19876595,"favorites_title":"程序员必备"},{"type":1,"favorites_id":19876636,"favorites_title":"办公室零食"},{"type":1,"favorites_id":19876637,"favorites_title":"上班族早餐"},{"type":1,"favorites_id":19876649,"favorites_title":"日用品"},{"type":1,"favorites_id":19902751,"favorites_title":"电脑周边"},{"type":1,"favorites_id":19903201,"favorites_title":"秋天必备"}]
+     * message : 获取分类成功.
+     * data : [{"id":9660,"title":"推荐"},{"id":9649,"title":"食品"}]
      */
 
     private boolean success;
@@ -50,46 +51,27 @@ public class Categories {
 
     public static class DataBean {
         /**
-         * type : 1
-         * favorites_id : 19876595
-         * favorites_title : 程序员必备
+         * id : 9660
+         * title : 推荐
          */
 
-        private int type;
-        private int favorites_id;
-        private String favorites_title;
+        private int id;
+        private String title;
 
-        public int getType() {
-            return type;
+        public int getId() {
+            return id;
         }
 
-        public void setType(int type) {
-            this.type = type;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public int getFavorites_id() {
-            return favorites_id;
+        public String getTitle() {
+            return title;
         }
 
-        public void setFavorites_id(int favorites_id) {
-            this.favorites_id = favorites_id;
-        }
-
-        public String getFavorites_title() {
-            return favorites_title;
-        }
-
-        public void setFavorites_title(String favorites_title) {
-            this.favorites_title = favorites_title;
-        }
-
-        @Override
-        public String toString() {
-            return "DataBean{" +
-                    "type=" + type +
-                    ", favorites_id=" + favorites_id +
-                    ", favorites_title='" + favorites_title + '\'' +
-                    '}';
+        public void setTitle(String title) {
+            this.title = title;
         }
     }
 

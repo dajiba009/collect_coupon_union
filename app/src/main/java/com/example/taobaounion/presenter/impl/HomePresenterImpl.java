@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.taobaounion.model.Api;
 import com.example.taobaounion.model.domain.Categories;
+import com.example.taobaounion.model.domain.HomePagerContent;
 import com.example.taobaounion.presenter.IHomePresenter;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.RetofitManager;
