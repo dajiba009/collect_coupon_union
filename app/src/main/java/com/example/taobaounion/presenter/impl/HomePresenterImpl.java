@@ -1,10 +1,7 @@
 package com.example.taobaounion.presenter.impl;
 
-import android.util.Log;
-
 import com.example.taobaounion.model.Api;
 import com.example.taobaounion.model.domain.Categories;
-import com.example.taobaounion.model.domain.HomePagerContent;
 import com.example.taobaounion.presenter.IHomePresenter;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.RetofitManager;
@@ -51,7 +48,7 @@ public class HomePresenterImpl implements IHomePresenter {
                     //请求失败
                     LogUtils.i(HomePresenterImpl.this,"请求错误....");
                     if (mCallback != null) {
-                        mCallback.onNetWorkError();
+                        mCallback.onError();
                     }
                 }
 
@@ -62,7 +59,7 @@ public class HomePresenterImpl implements IHomePresenter {
                 //加载失败的结果
                 LogUtils.e(HomePresenterImpl.this,"请求失败.... " + t);
                 if (mCallback != null) {
-                    mCallback.onNetWorkError();
+                    mCallback.onError();
                 }
             }
         });

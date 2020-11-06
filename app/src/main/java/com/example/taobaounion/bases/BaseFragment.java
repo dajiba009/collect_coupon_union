@@ -47,10 +47,14 @@ public abstract class BaseFragment extends Fragment {
         //View view = loadSuccessViwe(inflater, container);
         mBind = ButterKnife.bind(this, rootView);
         initView(rootView);
+        initListener();
         initPresenter();
         //各个子类在返回view前有自己的各自的加载方法，所以安排loadData这个方法给他们,让他们各自实现自己的加载数据
         loadData();
         return rootView;
+    }
+
+    protected void initListener() {
     }
 
     protected View loadRootView(LayoutInflater inflater, ViewGroup container) {

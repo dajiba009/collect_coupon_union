@@ -21,7 +21,7 @@
             android:layout_marginLeft="10dp" />
 
         <EditText
-            android:background="@drawable/shape_edit_box_bg"
+            android:background="@color/white"
             android:hint="请输入你想搜索的。。。"
             android:textSize="14sp"
             android:paddingLeft="10dp"

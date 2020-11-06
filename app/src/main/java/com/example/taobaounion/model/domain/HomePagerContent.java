@@ -48,6 +48,16 @@ public class HomePagerContent {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "HomePagerContent{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
+
     public static class DataBean {
         /**
          * category_id : 50013196
@@ -324,5 +334,15 @@ public class HomePagerContent {
                 this.string = string;
             }
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "category_id=" + category_id +
+                    ", category_name=" + category_name +
+                    ", click_url='" + click_url + '\'' +
+                    '}';
+        }
     }
+
 }
