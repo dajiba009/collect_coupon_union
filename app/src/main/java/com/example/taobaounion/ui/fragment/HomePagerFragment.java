@@ -15,7 +15,6 @@ import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePagerContent;
 import com.example.taobaounion.presenter.ICategoryPagerPresenter;
 import com.example.taobaounion.presenter.ITicketPresenter;
-import com.example.taobaounion.presenter.impl.TickPresenterImp;
 import com.example.taobaounion.ui.activiry.TicketActivity;
 import com.example.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;

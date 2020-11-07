@@ -50,6 +50,11 @@ public class MainActivity extends BaseActivity {
         initListener();
     }
 
+    @Override
+    protected void initPresenter() {
+
+    }
+
     private void initFragment() {
         mHomeFragment = new HomeFragment();
         mRedPacketFragment = new RedPacketFragment();
