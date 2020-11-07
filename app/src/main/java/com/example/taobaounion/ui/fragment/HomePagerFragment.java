@@ -15,6 +15,7 @@ import com.example.taobaounion.model.domain.HomePagerContent;
 import com.example.taobaounion.presenter.impl.CategoryPagerPresenterImpl;
 import com.example.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
+import com.example.taobaounion.ui.custom.AutoLoopViewpager;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.SizeUtils;
@@ -43,7 +44,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     private HomePageContentAdapter mContentAdapter;
 
     @BindView(R.id.looperPage)
-    public ViewPager looperPager;
+    public AutoLoopViewpager looperPager;
 
     @BindView(R.id.home_pager_title)
     public TextView mCurrentPageTitleTv;
@@ -72,6 +73,18 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         bundle.putInt(Constants.KEY_HOME_MATERIAL_ID,dataBean.getId());
         homePagerFragment.setArguments(bundle);
         return homePagerFragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        looperPager.startLoop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        looperPager.stopLoop();
     }
 
     @Override

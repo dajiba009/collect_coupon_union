@@ -33,8 +33,8 @@ public class TbNestedScrollView extends NestedScrollView {
         if(target instanceof RecyclerView){
             this.mRecyclerView = (RecyclerView)target;
         }
-        Log.d(TAG,"mHeaderHeight ===> " + mHeaderHeight);
-        Log.d(TAG,"originScroll ===> " + originScroll);
+//        Log.d(TAG,"mHeaderHeight ===> " + mHeaderHeight);
+//        Log.d(TAG,"originScroll ===> " + originScroll);
         if(mHeaderHeight > originScroll){
             //scrollBy是滑动多少，scrollTo是滑动到某个为位置
             scrollBy(dx,dy);
