@@ -60,7 +60,7 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
             int width = layoutParams.width;
             int hight = layoutParams.height;
             int coverSize = (width > hight ? width : hight)/2;
-            LogUtils.d(TAG,"jpgUrl ====> " + UrlUtils.getCoverPath(dataBean.getPict_url(),coverSize));
+            //LogUtils.d(TAG,"jpgUrl ====> " + UrlUtils.getCoverPath(dataBean.getPict_url(),coverSize));
             Glide.with(context).load(UrlUtils.getCoverPath(dataBean.getPict_url(),coverSize)).into(cover);
             //Glide.with(context).load(UrlUtils.getCoverPath(dataBean.getPict_url())).into(cover);
             String original = dataBean.getZk_final_price();

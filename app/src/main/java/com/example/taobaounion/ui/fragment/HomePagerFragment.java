@@ -3,7 +3,6 @@ package com.example.taobaounion.ui.fragment;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +22,7 @@ import com.example.taobaounion.utils.ToastUtil;
 import com.example.taobaounion.view.ICategoryPagerCallback;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.views.TbNestedScrollView;
 
 import java.util.List;
 
@@ -56,6 +56,12 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @BindView(R.id.home_pager_parent)
     public LinearLayout homePagerParent;
+
+    @BindView(R.id.home_pager_nested_scroller)
+    public TbNestedScrollView homePagerNestView;
+
+    @BindView(R.id.home_pager_header_container)
+    public LinearLayout homeHeaderContainer;
 
     private LooperPagerAdapter mLooperPagerAdapter;
 
@@ -105,17 +111,23 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         homePagerParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                //获取homePagerParent这个LinearLayout的高度
-                int measuredHeight = homePagerParent.getMeasuredHeight();
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mContentList.getLayoutParams();
-                layoutParams.height = measuredHeight;
-                //将RecyclerView的高度设置为顶层LinearLayout的高度
-                mContentList.setLayoutParams(layoutParams);
-                if(measuredHeight != 0){
-                    homePagerParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                //获取头部LinearLayout的高度,将这个高度给NestedScrollView，作为什么时候停止滑动消费的相应
+                if(homeHeaderContainer!=null){
+                    int headerHeight = homeHeaderContainer.getMeasuredHeight();
+                    homePagerNestView.setHeaderHeight(headerHeight);
+                    //获取homePagerParent这个LinearLayout的高度
+                    int measuredHeight = homePagerParent.getMeasuredHeight();
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mContentList.getLayoutParams();
+                    layoutParams.height = measuredHeight;
+                    //将RecyclerView的高度设置为顶层LinearLayout的高度
+                    mContentList.setLayoutParams(layoutParams);
+                    if(measuredHeight != 0){
+                        homePagerParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
                 }
             }
         });
+
         looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
