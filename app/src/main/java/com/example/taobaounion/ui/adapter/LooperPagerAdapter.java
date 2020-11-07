@@ -14,11 +14,11 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 public class LooperPagerAdapter extends PagerAdapter {
 
     private List<HomePagerContent.DataBean> data = new ArrayList<>();
+    private OnLooperPageItemClickListener mOnListenerItemClickListener = null;
 
     @NonNull
     @Override
@@ -37,6 +37,15 @@ public class LooperPagerAdapter extends PagerAdapter {
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(layoutParams);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnListenerItemClickListener != null){
+                    HomePagerContent.DataBean item = data.get(realPosition);
+                    mOnListenerItemClickListener.onLooperItemClick(item);
+                }
+            }
+        });
         container.addView(imageView);
         return imageView;
     }
@@ -64,5 +73,13 @@ public class LooperPagerAdapter extends PagerAdapter {
 
     public int getDataSize(){
         return data.size();
+    }
+
+    public void setOnLooperPageItemClickListener(OnLooperPageItemClickListener listener){
+        this.mOnListenerItemClickListener = listener;
+    }
+
+    public interface OnLooperPageItemClickListener{
+        void onLooperItemClick(HomePagerContent.DataBean item);
     }
 }

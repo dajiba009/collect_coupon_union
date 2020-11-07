@@ -1,5 +1,6 @@
 package com.example.taobaounion.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -12,12 +13,16 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.bases.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePagerContent;
-import com.example.taobaounion.presenter.impl.CategoryPagerPresenterImpl;
+import com.example.taobaounion.presenter.ICategoryPagerPresenter;
+import com.example.taobaounion.presenter.ITicketPresenter;
+import com.example.taobaounion.presenter.impl.TickPresenterImp;
+import com.example.taobaounion.ui.activiry.TicketActivity;
 import com.example.taobaounion.ui.adapter.HomePageContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.ui.custom.AutoLoopViewpager;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
+import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.utils.SizeUtils;
 import com.example.taobaounion.utils.ToastUtil;
 import com.example.taobaounion.view.ICategoryPagerCallback;
@@ -33,9 +38,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
-public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback {
+public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback, HomePageContentAdapter.OnListenerItemClickListener, LooperPagerAdapter.OnLooperPageItemClickListener {
 
-    private CategoryPagerPresenterImpl mCategoryPagerPresenter;
+    private ICategoryPagerPresenter mCategoryPagerPresenter;
     private int mMaterialId;
 
     @BindView(R.id.home_pager_content_list)
@@ -117,6 +122,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @Override
     protected void initListener() {
+        mContentAdapter.setOnListenerItemClickListener(this);
+        mLooperPagerAdapter.setOnLooperPageItemClickListener(this);
+
         //注意这里的tkrefreshlayout有一个问题就是会使RecyclerView把所有item一次性全部创建导致内存占用大,下面就是修复这个问题
         //这里是首先是通过给homePagerParent即是最里层的LinearLayout添加一个addview的监听，以为RecyclerView会创建View的，添加里面的view也会触发这个监听
         //然后我们通过动态限制RecycleView的高度，让其不能一次性加载全部itemView，只加载RecyclerView高度/itemView高度的子view，这样就可以避免因一次加载全部itemView导致占用内存过大
@@ -192,7 +200,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
     @Override
     protected void initPresenter() {
-        mCategoryPagerPresenter = CategoryPagerPresenterImpl.getInstance();
+        mCategoryPagerPresenter = PresenterManager.getInstance().getCategoryPagerPresenter();
         mCategoryPagerPresenter.registerViewCallback(this);
     }
 
@@ -297,5 +305,39 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     public int getCategoryId() {
         return mMaterialId;
     }
+
     //===============================================================CallBack======================================
+
+    //===============================================================adapter的点击接口======================================
+
+    /**
+     * 列表框
+     * @param item
+     */
+    @Override
+    public void onItemClick(HomePagerContent.DataBean item) {
+        //列表点击内容
+        handleItemClick(item);
+    }
+
+    private void handleItemClick(HomePagerContent.DataBean item) {
+        //因为都是跳转到tickActivity所以都是用这个方法
+        //拿到ticket去加载数据
+        String title = item.getTitle();
+        String url = item.getClick_url();
+        String cover = item.getPict_url();
+        ITicketPresenter tickPresenter = PresenterManager.getInstance().getTickPresenterImp();
+        tickPresenter.getTicket(title,url,cover);
+        startActivity(new Intent(getContext(), TicketActivity.class));
+    }
+
+    /**
+     * 轮播图
+     * @param item
+     */
+    @Override
+    public void onLooperItemClick(HomePagerContent.DataBean item) {
+        handleItemClick(item);
+    }
+    //===============================================================adapter的点击接口======================================
 }

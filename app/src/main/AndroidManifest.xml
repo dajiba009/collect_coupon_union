@@ -23,6 +23,11 @@
         </activity>
         <activity android:name=".ui.activiry.TestActivity">
         </activity>
+
+        <activity android:name=".ui.activiry.TicketActivity"
+            android:launchMode="singleTop">
+
+        </activity>
     </application>
 
 </manifest>

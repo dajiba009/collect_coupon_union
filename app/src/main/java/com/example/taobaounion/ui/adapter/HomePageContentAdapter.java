@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.taobaounion.R;
 import com.example.taobaounion.model.domain.HomePagerContent;
+import com.example.taobaounion.ui.fragment.HomePagerFragment;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 
@@ -24,8 +25,8 @@ import butterknife.ButterKnife;
 
 public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContentAdapter.InnerHolder> {
 
-    private static final Object TAG = "HomePageContentAdapter";
     private List<HomePagerContent.DataBean> data = new ArrayList<>();
+    private OnListenerItemClickListener mItemClickListener = null;
 
     public class InnerHolder extends RecyclerView.ViewHolder {
 
@@ -87,6 +88,15 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         //设置数据
         holder.setData(data.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mItemClickListener != null){
+                    HomePagerContent.DataBean item = data.get(position);
+                    mItemClickListener.onItemClick(item);
+                }
+            }
+        });
     }
 
     @Override
@@ -107,5 +117,13 @@ public class HomePageContentAdapter extends RecyclerView.Adapter<HomePageContent
         data.addAll(contents);
         //更新UI
         notifyItemRangeChanged(olderSize,contents.size());
+    }
+
+    public void setOnListenerItemClickListener(OnListenerItemClickListener listener){
+        this.mItemClickListener = listener;
+    }
+
+    public interface OnListenerItemClickListener{
+        void onItemClick(HomePagerContent.DataBean item);
     }
 }

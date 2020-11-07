@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import com.example.taobaounion.R;
 import com.example.taobaounion.bases.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
+import com.example.taobaounion.presenter.IHomePresenter;
 import com.example.taobaounion.presenter.impl.HomePresenterImpl;
 import com.example.taobaounion.ui.adapter.HomePagerAdapter;
+import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.view.IHomeCallback;
 import com.google.android.material.tabs.TabLayout;
 
@@ -17,7 +19,7 @@ import butterknife.BindView;
 
 public class HomeFragment extends BaseFragment implements IHomeCallback {
 
-    private HomePresenterImpl mHomePresenter;
+    private IHomePresenter mHomePresenter;
 
     @BindView(R.id.home_indicator)
     public TabLayout mTabLayout;
@@ -51,7 +53,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     @Override
     protected void initPresenter() {
         //创建presenter
-        mHomePresenter = new HomePresenterImpl();
+        mHomePresenter = PresenterManager.getInstance().getHomePresenter();
         mHomePresenter.registerViewCallback(this);
     }
 

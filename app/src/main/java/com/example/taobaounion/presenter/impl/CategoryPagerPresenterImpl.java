@@ -20,29 +20,12 @@ import retrofit2.Retrofit;
 
 public class CategoryPagerPresenterImpl implements ICategoryPagerPresenter {
 
-    private static CategoryPagerPresenterImpl sInstance = null;
-
     private Map<Integer,Integer> pagesInfo = new HashMap<>();
 
     public static final int DEFAULT_PAGE = 1;
 
     private List<ICategoryPagerCallback> callbacks = new ArrayList<>();
     private Integer mCurrenterPage;
-
-    public static CategoryPagerPresenterImpl getInstance(){
-        if(sInstance == null){
-            synchronized (CategoryPagerPresenterImpl.class){
-                if(sInstance == null){
-                    sInstance = new CategoryPagerPresenterImpl();
-                }
-            }
-        }
-        return sInstance;
-    }
-
-    private CategoryPagerPresenterImpl(){
-
-    }
 
     /**
      * 根据分类id去加载内容
