@@ -28,8 +28,8 @@ public class LooperPagerAdapter extends PagerAdapter {
         HomePagerContent.DataBean dataBean = data.get(realPosition);
         int measuredHeight = container.getMeasuredHeight();
         int measuredWidth = container.getMeasuredWidth();
-        LogUtils.d(this,"measuredHeight ===> " + measuredHeight);
-        LogUtils.d(this,"measuredWidth ===> " + measuredWidth);
+//        LogUtils.d(this,"measuredHeight ===> " + measuredHeight);
+//        LogUtils.d(this,"measuredWidth ===> " + measuredWidth);
         int ivSize = (measuredHeight > measuredWidth ? measuredHeight : measuredWidth)/2;
         String coverUrl = UrlUtils.getCoverPath(dataBean.getPict_url(),ivSize);
         ImageView imageView = new ImageView(container.getContext());

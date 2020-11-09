@@ -2,9 +2,11 @@ package com.example.taobaounion.utils;
 
 import com.example.taobaounion.presenter.ICategoryPagerPresenter;
 import com.example.taobaounion.presenter.IHomePresenter;
+import com.example.taobaounion.presenter.ISelectedPagePresenter;
 import com.example.taobaounion.presenter.ITicketPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagerPresenterImpl;
 import com.example.taobaounion.presenter.impl.HomePresenterImpl;
+import com.example.taobaounion.presenter.impl.SelectedPagePresenterImp;
 import com.example.taobaounion.presenter.impl.TickPresenterImp;
 
 /**
@@ -15,6 +17,7 @@ public class PresenterManager {
     private final ICategoryPagerPresenter mCategoryPagerPresenter;
     private final ITicketPresenter mTickPresenterImp;
     private final IHomePresenter mHomePresenter;
+    private final ISelectedPagePresenter mSelectedPagePresenterImp;
 
 
     //在这里来管理所有prensenter，在static中持有这些presenter那么就可以不会被gc回收
@@ -22,8 +25,8 @@ public class PresenterManager {
         mCategoryPagerPresenter = new CategoryPagerPresenterImpl();
         mHomePresenter = new HomePresenterImpl();
         mTickPresenterImp = new TickPresenterImp();
+        mSelectedPagePresenterImp = new SelectedPagePresenterImp();
     }
-
 
     public ITicketPresenter getTickPresenterImp() {
         return mTickPresenterImp;
@@ -39,5 +42,9 @@ public class PresenterManager {
 
     public ICategoryPagerPresenter getCategoryPagerPresenter() {
         return mCategoryPagerPresenter;
+    }
+
+    public ISelectedPagePresenter getSelectedPagePresenterImp() {
+        return mSelectedPagePresenterImp;
     }
 }

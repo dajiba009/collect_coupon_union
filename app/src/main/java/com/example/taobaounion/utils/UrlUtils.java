@@ -23,4 +23,8 @@ public class UrlUtils {
             return "https:" + url;
         }
     }
+
+    public static String getSelectedPageContentUrl(int favorites_id) {
+        return "recommend/" + favorites_id;
+    }
 }

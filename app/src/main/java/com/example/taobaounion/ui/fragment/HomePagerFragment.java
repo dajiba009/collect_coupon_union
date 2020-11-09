@@ -3,6 +3,7 @@ package com.example.taobaounion.ui.fragment;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -186,7 +187,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
      * @param targetPosition
      */
     private void updateLooperIndicator(int targetPosition) {
-        LogUtils.d(this,"targetPositon ===> " + targetPosition);
+        //LogUtils.d(this,"targetPositon ===> " + targetPosition);
         for(int i=0;i<looperPointContainer.getChildCount();i++){
             View point = looperPointContainer.getChildAt(i);
             if(i == targetPosition){
@@ -323,7 +324,13 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         //因为都是跳转到tickActivity所以都是用这个方法
         //拿到ticket去加载数据
         String title = item.getTitle();
-        String url = item.getClick_url();
+        //详情地址
+        //String url = item.getClick_url();
+        String url = item.getCoupon_click_url();
+        if(TextUtils.isEmpty(url)){
+            //因为有一些是没有优惠的，所以要跳到另一个url
+            url = item.getClick_url();
+        }
         String cover = item.getPict_url();
         ITicketPresenter tickPresenter = PresenterManager.getInstance().getTickPresenterImp();
         tickPresenter.getTicket(title,url,cover);
