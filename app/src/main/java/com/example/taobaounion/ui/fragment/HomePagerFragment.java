@@ -227,6 +227,13 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         }
     }
 
+    @Override
+    protected void onRetryClick() {
+        if(mCategoryPagerPresenter != null){
+            mCategoryPagerPresenter.reload(mMaterialId);
+        }
+    }
+
     //===============================================================CallBack======================================
     @Override
     public void onContentLoaded(List<HomePagerContent.DataBean> contents) {
