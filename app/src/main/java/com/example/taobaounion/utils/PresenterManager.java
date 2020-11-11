@@ -2,10 +2,12 @@ package com.example.taobaounion.utils;
 
 import com.example.taobaounion.presenter.ICategoryPagerPresenter;
 import com.example.taobaounion.presenter.IHomePresenter;
+import com.example.taobaounion.presenter.IOnSellPagePresenter;
 import com.example.taobaounion.presenter.ISelectedPagePresenter;
 import com.example.taobaounion.presenter.ITicketPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagerPresenterImpl;
 import com.example.taobaounion.presenter.impl.HomePresenterImpl;
+import com.example.taobaounion.presenter.impl.OnSellPagePresenterImp;
 import com.example.taobaounion.presenter.impl.SelectedPagePresenterImp;
 import com.example.taobaounion.presenter.impl.TickPresenterImp;
 
@@ -18,6 +20,7 @@ public class PresenterManager {
     private final ITicketPresenter mTickPresenterImp;
     private final IHomePresenter mHomePresenter;
     private final ISelectedPagePresenter mSelectedPagePresenterImp;
+    private final IOnSellPagePresenter mOnSellPagePresenter;
 
 
     //在这里来管理所有prensenter，在static中持有这些presenter那么就可以不会被gc回收
@@ -26,6 +29,7 @@ public class PresenterManager {
         mHomePresenter = new HomePresenterImpl();
         mTickPresenterImp = new TickPresenterImp();
         mSelectedPagePresenterImp = new SelectedPagePresenterImp();
+        mOnSellPagePresenter = new OnSellPagePresenterImp();
     }
 
     public ITicketPresenter getTickPresenterImp() {
@@ -46,5 +50,9 @@ public class PresenterManager {
 
     public ISelectedPagePresenter getSelectedPagePresenterImp() {
         return mSelectedPagePresenterImp;
+    }
+
+    public IOnSellPagePresenter getOnSellPagePresenter() {
+        return mOnSellPagePresenter;
     }
 }

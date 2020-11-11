@@ -1,14 +1,10 @@
 package com.example.taobaounion.ui.activiry;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -16,7 +12,7 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.bases.BaseActivity;
 import com.example.taobaounion.bases.BaseFragment;
 import com.example.taobaounion.ui.fragment.HomeFragment;
-import com.example.taobaounion.ui.fragment.RedPacketFragment;
+import com.example.taobaounion.ui.fragment.OnSellFragment;
 import com.example.taobaounion.ui.fragment.SearchFragment;
 import com.example.taobaounion.ui.fragment.SelectedFragment;
 import com.example.taobaounion.utils.LogUtils;
@@ -28,7 +24,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.main_navigation_bar)
     public BottomNavigationView mNavigationView;
     private HomeFragment mHomeFragment;
-    private RedPacketFragment mRedPacketFragment;
+    private OnSellFragment mOnSellFragment;
     private SelectedFragment mSelectedFragment;
     private SearchFragment mSearchFragment;
     private FragmentManager mFm;
@@ -57,7 +53,7 @@ public class MainActivity extends BaseActivity {
 
     private void initFragment() {
         mHomeFragment = new HomeFragment();
-        mRedPacketFragment = new RedPacketFragment();
+        mOnSellFragment = new OnSellFragment();
         mSelectedFragment = new SelectedFragment();
         mSearchFragment = new SearchFragment();
         mFm = getSupportFragmentManager();
@@ -79,7 +75,7 @@ public class MainActivity extends BaseActivity {
                     switchFragment(mSelectedFragment);
                 }else if(item.getItemId() == R.id.red_packet){
                     LogUtils.d(this,"切换到红包");
-                    switchFragment(mRedPacketFragment);
+                    switchFragment(mOnSellFragment);
                 }else if(item.getItemId() == R.id.search){
                     LogUtils.d(this,"切换到搜索");
                     switchFragment(mSearchFragment);

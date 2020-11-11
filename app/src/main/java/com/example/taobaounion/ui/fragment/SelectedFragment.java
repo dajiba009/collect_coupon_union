@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.taobaounion.R;
 import com.example.taobaounion.bases.BaseFragment;
@@ -40,6 +41,9 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     @BindView(R.id.content_list)
     public RecyclerView rightRecycle;
 
+    @BindView(R.id.fragment_layout_title)
+    public TextView barTitleTv;
+
     private ISelectedPagePresenter mSelectedPagePresenterImp;
     private SelectedPageLeftAdapter mAdapter;
     private SelectPageContentAdapter mContentAdapter;
@@ -50,7 +54,13 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     }
 
     @Override
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_with_bar_layout, container,false);
+    }
+
+    @Override
     protected void initView(View view) {
+        barTitleTv.setText("精选宝贝");
         setUpStates(State.SUCCESS);
         leftRecycle.setLayoutManager(new LinearLayoutManager(this.getContext()));
         mAdapter = new SelectedPageLeftAdapter();

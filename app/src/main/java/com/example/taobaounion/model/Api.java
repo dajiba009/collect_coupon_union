@@ -2,6 +2,7 @@ package com.example.taobaounion.model;
 
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePagerContent;
+import com.example.taobaounion.model.domain.OnSellContent;
 import com.example.taobaounion.model.domain.SelectedContent;
 import com.example.taobaounion.model.domain.SelectedPageCategory;
 import com.example.taobaounion.model.domain.TicketParams;
@@ -37,4 +38,7 @@ public interface Api {
 
     @GET
     Call<SelectedContent> getSelectedPageContentTwo(@Url String url);
+
+    @GET
+    Call<OnSellContent> getOnSellContent(@Url String url);
 }

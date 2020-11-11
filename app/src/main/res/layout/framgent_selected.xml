@@ -4,20 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:background="@color/colorPrimary">
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:background="@color/colorPrimary">-->
 
-        <TextView
-            android:text="@string/text_selected_title"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:textStyle="bold"/>
-    </RelativeLayout>
+<!--        <TextView-->
+<!--            android:text="@string/text_selected_title"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="16dp"-->
+<!--            android:textStyle="bold"/>-->
+<!--    </RelativeLayout>-->
     
     <LinearLayout
         android:background="@color/colorEFEEEE"
