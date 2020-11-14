@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.widget.RadioGroup;
 
 import com.example.taobaounion.R;
+import com.example.taobaounion.ui.custom.TextFlowLayout;
 import com.example.taobaounion.utils.LogUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
@@ -19,12 +23,31 @@ public class TestActivity extends Activity {
     @BindView(R.id.test_navigation_bar)
     public RadioGroup mNavigationBar;
 
+    @BindView(R.id.flow_layout)
+    public TextFlowLayout mTextFlowLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         ButterKnife.bind(this);
         initListener();
+        List<String> list = new ArrayList<>();
+        list.add("键盘");
+        list.add("鼠标");
+        list.add("张洪嘉赛加");
+        list.add("终极格斗");
+        list.add("android——kotlin终极血马教学");
+        list.add("web终极教学");
+        list.add("java 和 c++ 和c");
+        list.add("显示屏");
+        mTextFlowLayout.setTextList(list);
+        mTextFlowLayout.setOnFlowTextItemClickListener(new TextFlowLayout.OnFlowTextItemClickListener() {
+            @Override
+            public void onFlowItemClick(String text) {
+                LogUtils.d(TestActivity.this,"text ====> " + text);
+            }
+        });
     }
 
     private void initListener() {

@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.example.taobaounion.ui.custom.TextFlowLayout
+        android:id="@+id/flow_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <RadioGroup
         android:id="@+id/test_navigation_bar"
         android:layout_alignParentBottom="true"

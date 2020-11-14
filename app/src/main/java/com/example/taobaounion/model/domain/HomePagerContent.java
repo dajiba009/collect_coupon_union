@@ -58,7 +58,7 @@ public class HomePagerContent {
                 '}';
     }
 
-    public static class DataBean {
+    public static class DataBean implements ILinearItemInfo {
         /**
          * category_id : 50013196
          * category_name : null
@@ -291,28 +291,49 @@ public class HomePagerContent {
             this.small_images = small_images;
         }
 
+        //==============================ILinearItemInfo的方法==================
+        @Override
+        public String getCover() {
+            return pict_url;
+        }
+
         public String getTitle() {
             return title;
         }
-
-        public void setTitle(String title) {
-            this.title = title;
+        @Override
+        public String getUrl() {
+            return coupon_click_url;
         }
 
-        public long getUser_type() {
-            return user_type;
-        }
-
-        public void setUser_type(long user_type) {
-            this.user_type = user_type;
+        @Override
+        public String getFinalPrice() {
+            return zk_final_price;
         }
 
         public long getVolume() {
             return volume;
         }
 
+        @Override
+        public long getCouponAmout() {
+            return coupon_amount;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
         public void setVolume(long volume) {
             this.volume = volume;
+        }
+
+        //==============================ILinearItemInfo的方法==================
+        public long getUser_type() {
+            return user_type;
+        }
+
+        public void setUser_type(long user_type) {
+            this.user_type = user_type;
         }
 
         public String getZk_final_price() {
@@ -322,6 +343,7 @@ public class HomePagerContent {
         public void setZk_final_price(String zk_final_price) {
             this.zk_final_price = zk_final_price;
         }
+
 
         public static class SmallImagesBean {
             private List<String> string;

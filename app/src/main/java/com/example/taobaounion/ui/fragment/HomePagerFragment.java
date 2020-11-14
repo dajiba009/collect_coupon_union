@@ -1,9 +1,7 @@
 package com.example.taobaounion.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -14,16 +12,16 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.bases.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePagerContent;
+import com.example.taobaounion.model.domain.IBaseInfo;
 import com.example.taobaounion.presenter.ICategoryPagerPresenter;
-import com.example.taobaounion.presenter.ITicketPresenter;
-import com.example.taobaounion.ui.activiry.TicketActivity;
-import com.example.taobaounion.ui.adapter.HomePageContentAdapter;
+import com.example.taobaounion.ui.adapter.LinearItemContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.ui.custom.AutoLoopViewpager;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.utils.SizeUtils;
+import com.example.taobaounion.utils.TicketUtil;
 import com.example.taobaounion.utils.ToastUtil;
 import com.example.taobaounion.view.ICategoryPagerCallback;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -38,7 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
-public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback, HomePageContentAdapter.OnListenerItemClickListener, LooperPagerAdapter.OnLooperPageItemClickListener {
+public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback, LinearItemContentAdapter.OnListenerItemClickListener, LooperPagerAdapter.OnLooperPageItemClickListener {
 
     private ICategoryPagerPresenter mCategoryPagerPresenter;
     private int mMaterialId;
@@ -46,7 +44,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @BindView(R.id.home_pager_content_list)
     public RecyclerView mContentList;
 
-    private HomePageContentAdapter mContentAdapter;
+    private LinearItemContentAdapter mContentAdapter;
 
     @BindView(R.id.looperPage)
     public AutoLoopViewpager looperPager;
@@ -109,7 +107,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             }
         });
         //创建适配器
-        mContentAdapter = new HomePageContentAdapter();
+        mContentAdapter = new LinearItemContentAdapter();
         //设置适配器
         mContentList.setAdapter(mContentAdapter);
         //创建轮播图适配
@@ -322,26 +320,30 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
      * @param item
      */
     @Override
-    public void onItemClick(HomePagerContent.DataBean item) {
+    public void onItemClick(IBaseInfo item) {
         //列表点击内容
         handleItemClick(item);
     }
 
-    private void handleItemClick(HomePagerContent.DataBean item) {
-        //因为都是跳转到tickActivity所以都是用这个方法
-        //拿到ticket去加载数据
-        String title = item.getTitle();
-        //详情地址
-        //String url = item.getClick_url();
-        String url = item.getCoupon_click_url();
-        if(TextUtils.isEmpty(url)){
-            //因为有一些是没有优惠的，所以要跳到另一个url
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        ITicketPresenter tickPresenter = PresenterManager.getInstance().getTickPresenterImp();
-        tickPresenter.getTicket(title,url,cover);
-        startActivity(new Intent(getContext(), TicketActivity.class));
+    //原先是使用这个类的HomePagerContent.DataBean ，但为了抽出来处理我们将HomePagerContent.DataBean实现了IBaseInfo，后面只要去TicketAcitivy的Bean类都实现这个方法
+    //很多Fragment都要走TicketActivity所以将所有的Bean类继承IBaseInfo，统一管理
+    private void handleItemClick(IBaseInfo item) {
+//        //因为都是跳转到tickActivity所以都是用这个方法
+//        //拿到ticket去加载数据
+//        String title = item.getTitle();
+//        //详情地址
+//        //String url = item.getClick_url();
+//        String url = item.getCoupon_click_url();
+//        if(TextUtils.isEmpty(url)){
+//            //因为有一些是没有优惠的，所以要跳到另一个url
+//            url = item.getClick_url();
+//        }
+//        String cover = item.getPict_url();
+//        ITicketPresenter tickPresenter = PresenterManager.getInstance().getTickPresenterImp();
+//        tickPresenter.getTicket(title,url,cover);
+//        startActivity(new Intent(getContext(), TicketActivity.class));
+        //抽出来，使用工具类来跳转到TicketActivity
+        TicketUtil.toTicketPage(getContext(),item);
     }
 
     /**
@@ -349,7 +351,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
      * @param item
      */
     @Override
-    public void onLooperItemClick(HomePagerContent.DataBean item) {
+    public void onLooperItemClick(IBaseInfo item) {
         handleItemClick(item);
     }
     //===============================================================adapter的点击接口======================================

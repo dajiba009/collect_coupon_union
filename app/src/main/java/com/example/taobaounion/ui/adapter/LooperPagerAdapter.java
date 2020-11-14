@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.taobaounion.model.domain.HomePagerContent;
+import com.example.taobaounion.model.domain.IBaseInfo;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 
@@ -79,7 +80,8 @@ public class LooperPagerAdapter extends PagerAdapter {
         this.mOnListenerItemClickListener = listener;
     }
 
+    ////原先是使用这个类的HomePagerContent.DataBean ，但为了抽出来处理我们将HomePagerContent.DataBean实现了IBaseInfo,后面会用到这个IBaseInfo，所以我们
     public interface OnLooperPageItemClickListener{
-        void onLooperItemClick(HomePagerContent.DataBean item);
+        void onLooperItemClick(IBaseInfo item);
     }
 }

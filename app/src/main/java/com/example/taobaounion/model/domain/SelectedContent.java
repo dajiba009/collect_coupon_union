@@ -119,7 +119,7 @@ public class SelectedContent {
                     this.map_data = map_data;
                 }
 
-                public static class MapDataBean {
+                public static class MapDataBean implements IBaseInfo{
                     /**
                      * category_id : 50008144
                      * click_url : //s.click.taobao.com/t?e=m%3D2%26s%3DiBzxoq%2FWn1Fw4vFB6t2Z2ueEDrYVVa64Dne87AjQPk9yINtkUhsv0AzBdNfh890s%2FRBR2YS%2F5T5m5nS0VR3oT0KAZCke%2BMGJxC%2FP4%2FZfPFbcQmwDRwHnn1oN8CPq4PKMZiqtwk9j5QNwvQ4T0RclA0piZyojCAil3bk9c5uYdcJJ2sZNeXWPpYaKC%2FeSWU%2BESdChf3U3iXY%2B5QowgvHJPA%3D%3D&union_lens=lensId%3AMAPI%401604850397%400b0b00e3_e354_175a889b069_120a%4001
@@ -334,9 +334,21 @@ public class SelectedContent {
                         this.small_images = small_images;
                     }
 
+                    //=======================================IBaseInfo=======================
+                    @Override
+                    public String getCover() {
+                        return pict_url;
+                    }
+
                     public String getTitle() {
                         return title;
                     }
+
+                    @Override
+                    public String getUrl() {
+                        return coupon_click_url == null ? click_url : coupon_click_url;
+                    }
+                    //=======================================IBaseInfo=======================
 
                     public void setTitle(String title) {
                         this.title = title;

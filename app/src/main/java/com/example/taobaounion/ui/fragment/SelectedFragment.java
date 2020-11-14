@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.taobaounion.R;
 import com.example.taobaounion.bases.BaseFragment;
+import com.example.taobaounion.model.domain.IBaseInfo;
 import com.example.taobaounion.model.domain.SelectedContent;
 import com.example.taobaounion.model.domain.SelectedPageCategory;
 import com.example.taobaounion.presenter.ISelectedPagePresenter;
@@ -22,6 +23,7 @@ import com.example.taobaounion.ui.adapter.SelectedPageLeftAdapter;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.utils.SizeUtils;
+import com.example.taobaounion.utils.TicketUtil;
 import com.example.taobaounion.view.ISelectedPageCallback;
 
 import java.util.List;
@@ -159,23 +161,26 @@ public class SelectedFragment extends BaseFragment implements ISelectedPageCallb
     }
 
     //右边recycle的callback
+    //原先是使用这个类的HomePagerContent.DataBean ，但为了抽出来处理我们将HomePagerContent.DataBean实现了IBaseInfo，后面只要去TicketAcitivy的Bean类都实现这个方法
+    //很多Fragment都要走TicketActivity所以将所有的Bean类继承IBaseInfo，统一管理
     @Override
-    public void onContentItemClick(SelectedContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean item) {
-        //右边的点击
-        //因为都是跳转到tickActivity所以都是用这个方法
-        //拿到ticket去加载数据
-        String title = item.getTitle();
-        //详情地址
-        //String url = item.getClick_url();
-        String url = item.getCoupon_click_url();
-        if(TextUtils.isEmpty(url)){
-            //因为有一些是没有优惠的，所以要跳到另一个url
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        ITicketPresenter tickPresenter = PresenterManager.getInstance().getTickPresenterImp();
-        tickPresenter.getTicket(title,url,cover);
-        startActivity(new Intent(getContext(), TicketActivity.class));
+    public void onContentItemClick(IBaseInfo item) {
+//        //右边的点击
+//        //因为都是跳转到tickActivity所以都是用这个方法
+//        //拿到ticket去加载数据
+//        String title = item.getTitle();
+//        //详情地址
+//        //String url = item.getClick_url();
+//        String url = item.getCoupon_click_url();
+//        if(TextUtils.isEmpty(url)){
+//            //因为有一些是没有优惠的，所以要跳到另一个url
+//            url = item.getClick_url();
+//        }
+//        String cover = item.getPict_url();
+//        ITicketPresenter tickPresenter = PresenterManager.getInstance().getTickPresenterImp();
+//        tickPresenter.getTicket(title,url,cover);
+//        startActivity(new Intent(getContext(), TicketActivity.class));
+        TicketUtil.toTicketPage(getContext(),item);
     }
     //===============================================适配器callback=====================
 }
