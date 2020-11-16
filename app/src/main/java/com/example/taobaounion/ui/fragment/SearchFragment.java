@@ -40,7 +40,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 
-public class SearchFragment extends BaseFragment implements ISearchViewCallback {
+public class SearchFragment extends BaseFragment implements ISearchViewCallback, TextFlowLayout.OnFlowTextItemClickListener {
 
     private SearchPresenter mSearchPresenter;
 
@@ -48,7 +48,7 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
     public TextFlowLayout mHistoriesView;
 
     @BindView(R.id.search_recommend_view)
-    public TextFlowLayout mCommendView;
+    public TextFlowLayout mRecommendView;
 
     @BindView(R.id.search_recommend_container)
     public View mRecommendContainer;
@@ -116,6 +116,8 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
 
     @Override
     protected void initListener() {
+        mRecommendView.setOnFlowTextItemClickListener(this);
+        mHistoriesView.setOnFlowTextItemClickListener(this);
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +131,8 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
                     //不包含空格
                     //发起搜索
                     if (mSearchPresenter != null) {
-                        mSearchPresenter.doSearch(mSearchInputBox.getText().toString().trim());
+                        //mSearchPresenter.doSearch(mSearchInputBox.getText().toString().trim());
+                        toSearch(mSearchInputBox.getText().toString().trim());
                         KeyboardUtil.hide(getContext(),v);
                     }
                 }else {
@@ -203,7 +206,8 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
                         return false;
                     }else {
                         //发起搜索
-                        mSearchPresenter.doSearch(keyWord);
+                        //mSearchPresenter.doSearch(keyWord);
+                        toSearch(keyWord);
                     }
                 }
                 return false;
@@ -234,13 +238,15 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
         }
     }
 
+
+    /**
+     * 切换到历史和推荐页面
+     */
     private void switch2HistoryPage() {
-        if(mHistoriesView.getContentSize() != 0){
-            mHistoiesContainer.setVisibility(View.VISIBLE);
-        }else {
-            mHistoiesContainer.setVisibility(View.GONE);
+        if (mSearchPresenter != null) {
+            mSearchPresenter.getHistories();
         }
-        if(mCommendView.getContentSize() != 0){
+        if(mRecommendView.getContentSize() != 0){
             mRecommendContainer.setVisibility(View.VISIBLE);
         }else {
             mRecommendContainer.setVisibility(View.GONE);
@@ -319,7 +325,7 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
             mRecommendContainer.setVisibility(View.GONE);
         }else {
             mRecommendContainer.setVisibility(View.VISIBLE);
-            mCommendView.setTextList(list);
+            mRecommendView.setTextList(list);
         }
     }
 
@@ -339,4 +345,26 @@ public class SearchFragment extends BaseFragment implements ISearchViewCallback 
     }
 
     //===========================================callBack=========================
+
+    //========================================自定义view的监听==========
+    @Override
+    public void onFlowItemClick(String text) {
+        toSearch(text);
+    }
+
+    //========================================自定义view的监听==========
+
+    /**
+     * 将doSearch抽出来，然后可以在search前做一些初始化的操作
+     * @param text
+     */
+    private void toSearch(String text) {
+        if(mSearchPresenter != null){
+            searchRecycleView.scrollToPosition(0);
+            mSearchInputBox.setText(text);
+//            mSearchInputBox.requestFocus()t
+            mSearchInputBox.setSelection(text.length(),text.length());
+            mSearchPresenter.doSearch(text);
+        }
+    }
 }

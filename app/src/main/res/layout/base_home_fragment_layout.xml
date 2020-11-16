@@ -21,8 +21,10 @@
             android:layout_marginLeft="10dp" />
 
         <EditText
+            android:id="@+id/home_search_inputbox"
             android:background="@color/white"
             android:hint="请输入你想搜索的。。。"
+            android:focusable="false"
             android:textSize="14sp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

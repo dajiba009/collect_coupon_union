@@ -12,6 +12,7 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.utils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TextFlowLayout extends ViewGroup {
@@ -43,8 +44,13 @@ public class TextFlowLayout extends ViewGroup {
     }
 
     public void setTextList(List<String> textList){
-        for (String text : textList) {
-            this.mTextList.add(text);
+        //加入新的搜索词的时候先清干净之前的list
+        removeAllViews();
+        this.mTextList.clear();
+        this.mTextList.addAll(textList);
+        Collections.reverse(mTextList);
+        for (String text : mTextList) {
+            //this.mTextList.add(text);
             TextView item = (TextView) LayoutInflater.from(this.getContext()).inflate(R.layout.flow_text_view, this, false);
             item.setText(text);
             item.setOnClickListener(new OnClickListener() {

@@ -8,12 +8,13 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.bases.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.presenter.IHomePresenter;
-import com.example.taobaounion.presenter.impl.HomePresenterImpl;
+import com.example.taobaounion.ui.activiry.IMainActivity;
 import com.example.taobaounion.ui.adapter.HomePagerAdapter;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.view.IHomeCallback;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 
@@ -26,6 +27,9 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @BindView(R.id.home_pager)
     public ViewPager homePager;
+
+    @BindView(R.id.home_search_inputbox)
+    public View homeSearchInputBox;
 
     private HomePagerAdapter mHomePagerAdapter;
 
@@ -48,6 +52,20 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         if(mHomePresenter != null){
             mHomePresenter.getCategories();
         }
+    }
+
+    @Override
+    protected void initListener() {
+        //点击homefragmen上的search框会跳转到SearchFragment
+        homeSearchInputBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentActivity activity = getActivity();
+                if(activity instanceof IMainActivity){
+                    ((IMainActivity)activity).switch2Search();
+                }
+            }
+        });
     }
 
     @Override

@@ -18,7 +18,7 @@ import com.example.taobaounion.ui.fragment.SelectedFragment;
 import com.example.taobaounion.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements IMainActivity{
 
     private static final String TAG = "MainActivity";
     @BindView(R.id.main_navigation_bar)
@@ -88,6 +88,10 @@ public class MainActivity extends BaseActivity {
     private BaseFragment lastOneFragment = null;
 
     private void switchFragment(BaseFragment targetFragment) {
+        //因为可能会点击同一个标志导致lastOneFragment隐藏即自身隐藏掉了
+        if(lastOneFragment == targetFragment){
+            return;
+        }
         FragmentTransaction transaction = mFm.beginTransaction();//开启事务
         //通过修改add和hide来控制fragment的显示
         if (!targetFragment.isAdded()) {
@@ -103,4 +107,8 @@ public class MainActivity extends BaseActivity {
         transaction.commit();//提交事务
     }
 
+    @Override
+    public void switch2Search() {
+        mNavigationView.setSelectedItemId(R.id.search);
+    }
 }
