@@ -1,5 +1,6 @@
 package com.example.taobaounion.ui.fragment;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,12 @@ import com.example.taobaounion.bases.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.presenter.IHomePresenter;
 import com.example.taobaounion.ui.activiry.IMainActivity;
+import com.example.taobaounion.ui.activiry.ScanQrCodeActivity;
 import com.example.taobaounion.ui.adapter.HomePagerAdapter;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.view.IHomeCallback;
 import com.google.android.material.tabs.TabLayout;
+import com.vondear.rxfeature.activity.ActivityScanerCode;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -30,6 +33,9 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @BindView(R.id.home_search_inputbox)
     public View homeSearchInputBox;
+
+    @BindView(R.id.scan_icon)
+    public View scanBtn;
 
     private HomePagerAdapter mHomePagerAdapter;
 
@@ -64,6 +70,13 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
                 if(activity instanceof IMainActivity){
                     ((IMainActivity)activity).switch2Search();
                 }
+            }
+        });
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ScanQrCodeActivity.class);
+                startActivity(intent);
             }
         });
     }

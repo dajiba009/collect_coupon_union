@@ -84,6 +84,7 @@ public class TickPresenterImp implements ITicketPresenter {
 
     @Override
     public void registerViewCallback(ITicketPagerCallback callback) {
+        this.mViewCallback = callback;
         //之所以有下面这个的原因是获取数据是在new TicketActivity之前，所以可能会出现一种情况是，获取数据过快，比TicketActivity加载完页面前还要快，回导致
         //加载将数获取到的数据导入不了TicketActivity，以为TicketActivity初始化还没有完成，这样会导致导入数据失败，此时mViewCallback=null,解决方法就是，先暂时保存数据
         //此时的mCurrentState是记录下来的，我们可以通过mCurrentState来判断时机
@@ -98,7 +99,6 @@ public class TickPresenterImp implements ITicketPresenter {
                 onTicketLoading();
             }
         }
-        this.mViewCallback = callback;
     }
 
     private void onTicketLoading() {

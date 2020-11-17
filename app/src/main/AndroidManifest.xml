@@ -28,6 +28,9 @@
             android:launchMode="singleTop">
 
         </activity>
+        <activity android:name="com.example.taobaounion.ui.activiry.ScanQrCodeActivity">
+
+        </activity>
     </application>
 
 </manifest>
